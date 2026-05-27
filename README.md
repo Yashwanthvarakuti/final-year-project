@@ -26,9 +26,16 @@ This final year project analyzes RF IQ signal data and predicts 5G interference 
 ## Requirements
 
 - Python 3.10+
-- RML2016.10a dataset file: `RML2016.10a_dict.pkl`
+- RML2016.10a dataset file: `RML2016.10a_dict.pkl` or `RML2016.10a_dict_optimized.pkl`
 
 The dataset file is not committed to GitHub because it is large. Place it in the project root before running the script, or pass a custom path with `--dataset`.
+
+Dataset source used for this project:
+
+- Official DeepSig reference: https://github.com/ianblenke/deepsig_dataset
+- Downloaded mirror: https://zenodo.org/records/18397070
+
+After extraction, this project can use `RML2016.10a_dict_optimized.pkl` directly.
 
 ## Installation
 
@@ -47,7 +54,7 @@ python main.py
 Optional arguments:
 
 ```bash
-python main.py --dataset path\to\RML2016.10a_dict.pkl --output-dir outputs --sample-limit 30000
+python main.py --dataset path\to\RML2016.10a_dict_optimized.pkl --output-dir outputs --sample-limit 30000
 ```
 
 To open the notebook:

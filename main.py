@@ -19,7 +19,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import label_binarize
 
 
-DEFAULT_DATASET = "RML2016.10a_dict.pkl"
+DEFAULT_DATASETS = (
+    "RML2016.10a_dict.pkl",
+    "RML2016.10a_dict_optimized.pkl",
+)
 DEFAULT_OUTPUT_DIR = "outputs"
 RANDOM_STATE = 42
 
@@ -28,15 +31,27 @@ def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
 
-def load_dataset(dataset_path, sample_limit):
+def resolve_dataset_path(dataset_path):
     if not dataset_path.exists():
+        for default_dataset in DEFAULT_DATASETS:
+            candidate = Path(default_dataset)
+            if candidate.exists():
+                return candidate
+
+        expected_names = " or ".join(DEFAULT_DATASETS)
         raise FileNotFoundError(
             f"Dataset not found: {dataset_path}\n"
-            "Download RML2016.10a_dict.pkl and place it in the project root, "
-            "or pass its path with --dataset."
+            f"Place {expected_names} in the project root, or pass its path "
+            "with --dataset."
         )
 
-    print("Loading Dataset...")
+    return dataset_path
+
+
+def load_dataset(dataset_path, sample_limit):
+    dataset_path = resolve_dataset_path(dataset_path)
+
+    print(f"Loading Dataset: {dataset_path}")
     with dataset_path.open("rb") as f:
         data = pickle.load(f, encoding="latin1")
 
@@ -225,8 +240,8 @@ def parse_args():
     )
     parser.add_argument(
         "--dataset",
-        default=DEFAULT_DATASET,
-        help="Path to RML2016.10a_dict.pkl.",
+        default=DEFAULT_DATASETS[0],
+        help="Path to RML2016.10a_dict.pkl or RML2016.10a_dict_optimized.pkl.",
     )
     parser.add_argument(
         "--output-dir",
