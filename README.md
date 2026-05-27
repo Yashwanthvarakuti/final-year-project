@@ -18,6 +18,7 @@ This final year project analyzes RF IQ signal data and predicts 5G interference 
 |-- main.py
 |-- Mbu_finalyear_project.py
 |-- Mbu_finalyear_project.ipynb
+|-- run_project.bat
 |-- requirements.txt
 |-- .gitignore
 `-- README.md
@@ -47,14 +48,28 @@ pip install -r requirements.txt
 
 ## Run
 
+Small command to run the full project and open the frontend dashboard:
+
+```powershell
+.\run_project.bat
+```
+
+Manual terminal command:
+
 ```bash
 python main.py
+```
+
+To open the generated dashboard manually:
+
+```powershell
+start outputs\dashboard.html
 ```
 
 Optional arguments:
 
 ```bash
-python main.py --dataset path\to\RML2016.10a_dict_optimized.pkl --output-dir outputs --sample-limit 30000
+python main.py --dataset path\to\RML2016.10a_dict_optimized.pkl --output-dir outputs --sample-limit 30000 --open-dashboard
 ```
 
 To open the notebook:
@@ -71,6 +86,9 @@ Generated plots are saved in the `outputs/` directory:
 - `severity_distribution.png`
 - `confusion_matrix.png`
 - `feature_importance.png`
+- `dashboard.html`
+
+The dashboard is a frontend-style HTML page that shows each output image with a description explaining what the image means.
 
 ## Author
 
