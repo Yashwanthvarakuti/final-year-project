@@ -1,95 +1,287 @@
-# 5G Interference Analysis using Machine Learning
+# Machine Learning–Driven Prediction and Detection of 5G-Induced Nonlinear Interference in Radio Altimeters
 
-This final year project analyzes RF IQ signal data and predicts 5G interference severity using machine learning. It extracts statistical features from I/Q samples, creates synthetic 5G interference parameters, trains a Random Forest classifier, and saves evaluation plots.
+## Overview
 
-## Features
+This final year project presents a machine learning–based framework for predicting and detecting 5G-induced nonlinear interference in aviation radio altimeters using RF IQ signal analysis and spectral feature engineering.
 
-- Loads RF signal data from `RML2016.10a_dict.pkl`
-- Extracts RMS, variance, skewness, and kurtosis features
-- Simulates 5G interference parameters such as frequency, power, bandwidth, SIR, and gain compression
-- Classifies interference severity into three classes
-- Reports accuracy, macro F1 score, classification report, and ROC-AUC
-- Saves signal, severity distribution, confusion matrix, and feature importance plots
+The rapid deployment of mid-band 5G communication systems has introduced significant RF coexistence challenges for aeronautical radio altimeters operating in the 4200–4400 MHz band. High-power adjacent-band 5G emissions can produce nonlinear distortion, LNA saturation, IF gain compression, and altitude estimation errors in radio altimeters.
 
-## Project Structure
+This project combines RF signal processing, feature engineering, and machine learning to classify interference severity levels and predict height-error behavior in real time.
 
-```text
-.
-|-- main.py
-|-- Mbu_finalyear_project.py
-|-- Mbu_finalyear_project.ipynb
-|-- run_project.bat
-|-- requirements.txt
-|-- .gitignore
-`-- README.md
-```
+The work was also presented as part of an IEEE conference-level academic project presentation.
 
-## Requirements
+---
 
-- Python 3.10+
-- RML2016.10a dataset file: `RML2016.10a_dict.pkl` or `RML2016.10a_dict_optimized.pkl`
+# Key Features
 
-The dataset file is not committed to GitHub because it is large. Place it in the project root before running the script, or pass a custom path with `--dataset`.
+* RF IQ signal analysis using DeepSig RML2016.10a dataset
+* Time-domain and frequency-domain feature extraction
+* Simulation of 5G interference parameters
+* Random Forest and SVM-based interference classification
+* Height-error prediction using regression models
+* Detection of severe interference and NCD-risk conditions
+* Automated visualization dashboard generation
+* Real-time monitoring logic for aviation safety analysis
 
-Dataset source used for this project:
+---
 
-- Official DeepSig reference: https://github.com/ianblenke/deepsig_dataset
-- Downloaded mirror: https://zenodo.org/records/18397070
+# Technical Highlights
 
-After extraction, this project can use `RML2016.10a_dict_optimized.pkl` directly.
+## RF Feature Engineering
 
-## Installation
+Extracted statistical and RF-domain features including:
+
+* RMS
+* Variance
+* Skewness
+* Kurtosis
+* Peak amplitude
+* IF peak power
+* Spectral centroid
+* Noise-floor elevation
+* 3 dB bandwidth
+* Signal-to-Interference Ratio (SIR)
+* Gain compression ratio
+
+---
+
+# Machine Learning Pipeline
+
+The project performs:
+
+1. RF dataset preprocessing
+2. Feature extraction from IQ samples
+3. Synthetic 5G interference simulation
+4. Severity classification
+5. Height-error prediction
+6. Visualization and dashboard generation
+
+### Classification Targets
+
+* No Interference
+* Moderate Distortion
+* Severe Saturation
+
+---
+
+# Model Performance
+
+| Metric                   | Value |
+| ------------------------ | ----- |
+| Classification Accuracy  | 98.4% |
+| Severe-Class Sensitivity | 95.1% |
+| Moderate-Class F1 Score  | 0.97  |
+| Height Error RMSE        | 0.37% |
+| Height Error R²          | 0.96  |
+
+---
+
+# Project Architecture
+
+Dataset Construction & Preprocessing
+→ Feature Extraction
+→ ML Model Development
+→ Interference Detection & Height-Error Prediction
+→ Decision-Level Safety Monitoring
+
+---
+
+# Project Structure
 
 ```bash
-python -m venv .venv
-.venv\Scripts\activate
+.
+│── main.py
+│── Mbu_finalyear_project.py
+│── Mbu_finalyear_project.ipynb
+│── run_project.bat
+│── requirements.txt
+│── .gitignore
+│── README.md
+│
+└── outputs/
+    │── signal_plot.png
+    │── severity_distribution.png
+    │── confusion_matrix.png
+    │── feature_importance.png
+    └── dashboard.html
+```
+
+---
+
+# Dataset
+
+This project uses the DeepSig RadioML dataset for RF signal analysis.
+
+Dataset sources:
+
+* Official DeepSig Reference
+  https://github.com/ianblenke/deepsig_dataset
+
+* Download Mirror
+  https://zenodo.org/records/18397070
+
+Supported dataset files:
+
+* RML2016.10a_dict.pkl
+* RML2016.10a_dict_optimized.pkl
+
+Note:
+Dataset files are not included in this repository because of large file size limitations.
+
+Place the dataset file in the project root directory before execution.
+
+---
+
+# Requirements
+
+* Python 3.10+
+* NumPy
+* Pandas
+* Scikit-learn
+* Matplotlib
+* SciPy
+* Seaborn
+* Jupyter Notebook
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-## Run
+---
 
-Small command to run the full project and open the frontend dashboard:
+# Installation
 
-```powershell
+## Clone Repository
+
+```bash
+git clone <your-repository-link>
+cd <repository-name>
+```
+
+## Create Virtual Environment
+
+```bash
+python -m venv .venv
+```
+
+## Activate Environment
+
+### Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+source .venv/bin/activate
+```
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Run the Project
+
+## Quick Run
+
+```bash
 .\run_project.bat
 ```
 
-Manual terminal command:
+## Manual Run
 
 ```bash
 python main.py
 ```
 
-To open the generated dashboard manually:
-
-```powershell
-start outputs\dashboard.html
-```
-
-Optional arguments:
+## Run with Custom Parameters
 
 ```bash
 python main.py --dataset path\to\RML2016.10a_dict_optimized.pkl --output-dir outputs --sample-limit 30000 --open-dashboard
 ```
 
-To open the notebook:
+---
+
+# Open Jupyter Notebook
 
 ```bash
 jupyter notebook Mbu_finalyear_project.ipynb
 ```
 
-## Outputs
+---
 
-Generated plots are saved in the `outputs/` directory:
+# Generated Outputs
 
-- `signal_plot.png`
-- `severity_distribution.png`
-- `confusion_matrix.png`
-- `feature_importance.png`
-- `dashboard.html`
+The project automatically saves:
 
-The dashboard is a frontend-style HTML page that shows each output image with a description explaining what the image means.
+* RF Signal Plot
+* Severity Distribution Plot
+* Confusion Matrix
+* Feature Importance Graph
+* Interactive HTML Dashboard
 
-## Author
+Output directory:
+
+```bash
+outputs/
+```
+
+The dashboard provides a frontend-style visualization interface explaining all generated results and evaluation metrics.
+
+---
+
+# Research Motivation
+
+The project addresses growing concerns regarding RF coexistence between 5G communication systems and aviation radio altimeters.
+
+Traditional analytical methods explain nonlinear interference behavior but lack adaptive and real-time predictive capabilities.
+
+This work introduces a hybrid RF + ML framework capable of:
+
+* Detecting nonlinear gain compression
+* Predicting altitude-error escalation
+* Identifying severe interference conditions
+* Supporting onboard radio altimeter safety monitoring
+
+---
+
+# Future Improvements
+
+* Integration of real flight-test datasets
+* Deep learning–based temporal RF analysis
+* Real-time streaming interference detection
+* Edge deployment optimization
+* FPGA or SDR-based implementation
+
+---
+
+# Conference & Academic Work
+
+This project was developed as a final year major project under the Department of Computer Science and Engineering, Mohan Babu University.
+
+The work was also presented as part of an IEEE conference-oriented academic presentation on RF interference prediction and aviation safety monitoring.
+
+---
+
+# Author
 
 Yashwanth Varakuti
+
+Department of Computer Science and Engineering
+Mohan Babu University
+
+GitHub: https://github.com/Yashwanthvarakuti
+
+---
+
+# License
+
+This project is intended for academic, research, and educational purposes.
