@@ -271,6 +271,21 @@ The work was also presented as part of an IEEE conference-oriented academic pres
 
 ---
 
+# IEEE Conference Presentation
+
+This project was presented as part of an IEEE conference-oriented academic research presentation focused on RF coexistence, aviation safety, and machine learning–based interference detection in radio altimeters.
+
+The presentation covered:
+
+* 5G-induced nonlinear interference in aviation radio altimeters
+* RF signal analysis and spectral feature engineering
+* Random Forest and SVM-based interference classification
+* Height-error prediction and safety monitoring
+* Real-time interference detection logic
+
+The work demonstrates the application of machine learning in RF engineering and aviation communication safety systems.
+
+
 # Author
 
 Yashwanth Varakuti
